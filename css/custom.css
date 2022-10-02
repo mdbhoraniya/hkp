@@ -1,0 +1,66 @@
+.text-white{
+	color: #ffffff;
+}
+
+.text-white:hover{
+	color: #c5a46d;
+}
+
+/**
+ * Buy theme Style
+ */
+#weather-widget {
+background:
+linear-gradient(27deg, #151515 5px, transparent 5px) 0 5px,
+linear-gradient(207deg, #151515 5px, transparent 5px) 10px 0px,
+linear-gradient(27deg, #222 5px, transparent 5px) 0px 10px,
+linear-gradient(207deg, #222 5px, transparent 5px) 10px 5px,
+linear-gradient(90deg, #1b1b1b 10px, transparent 10px),
+linear-gradient(#1d1d1d 25%, #1a1a1a 25%, #1a1a1a 50%, transparent 50%, transparent 75%, #242424 75%, #242424);
+background-color: #131313;
+background-size: 20px 20px;    
+
+
+  padding: 70px 0; }
+  #weather-widget .inner-container {
+    max-width: 100%; }
+  #weather-widget .title {
+    font-size: 22px;
+    color: #C5A46D;
+    float: left;
+    line-height: 30px; }
+    #weather-widget .title span {
+      font-weight: bold;
+      color: #333333; }
+  #weather-widget a.btn, #weather-widget aside.sidebar .widget.widget_tag_cloud .tagcloud a, aside.sidebar .widget.widget_tag_cloud .tagcloud #weather-widget a {
+    float: right; }
+  @media (max-width: 767px) {
+    #weather-widget {
+      /*margin-top: 30px;*/
+      text-align: center; }
+      #weather-widget .title, #weather-widget a.btn, #weather-widget aside.sidebar .widget.widget_tag_cloud .tagcloud a, aside.sidebar .widget.widget_tag_cloud .tagcloud #weather-widget a {
+        float: none; }
+      #weather-widget .title {
+        margin-bottom: 30px; } }
+
+
+ul.pager a,ul.pager a:hover {
+	background: #C5A46D;
+	color: #ffffff;
+}
+
+.ht100{
+	height: 100px;
+}
+
+.ht80{
+	height: 80px;
+}
+
+.mb10{
+  margin-bottom: 10px !important;
+}
+
+.mb20{
+  margin-bottom: 20px !important;
+}
