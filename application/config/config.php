@@ -23,7 +23,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = 'http://localhost/hkp/';
+ if(isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on')
+         $url = "https://";
+    else
+         $url = "http://";
+    // Append the host(domain name, ip) to the URL.
+    $url.= $_SERVER['HTTP_HOST'].'/';
+
+    // Append the requested resource location to the URL
+    // $url.= $_SERVER['REQUEST_URI'];
+
+$config['base_url'] = $url;
+
+ // echo PHP_EOL.'<pre> data => '; print_r($config); die('  die here!');
 
 $config['css']      = $config['base_url'].'css/';
 $config['js']       = $config['base_url'].'js/';
