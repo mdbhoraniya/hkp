@@ -61,17 +61,17 @@
 				</div>
 			</div>
 			<div class="contact-form-box col-md-8">
-				<form class="contact-form clearfix" method="post">
+				<form id="contact_form" class="contact-form clearfix" method="post">
 					<div class="col-md-6">
-						<input type="text" name="name" id="name" placeholder="Full Name*">
-						<input type="text" name="mobile" id="mobile" placeholder="Mobile Number*">
-						<input type="email" name="email" id="email" placeholder="Email*">
+						<input type="text" name="name" id="name" class="validate" placeholder="Full Name*">
+						<input type="text" name="mobile" id="mobile" class="validate" placeholder="Mobile Number*">
+						<input type="email" name="email" id="email" class="validate" placeholder="Email*">
 					</div>
 					<div class="col-md-6">
-						<textarea name="message" id="message" placeholder="Your Message*"></textarea>
+						<textarea name="message" id="message" class="validate" placeholder="Your Message*"></textarea>
 					</div>
 					<div class="submit-container">
-						<input type="button" id="submit" value="Submit" class="btn btn-default">
+						<input type="submit" id="submit" value="Submit" class="btn btn-default">
 					</div>
 				</form>
 			</div>

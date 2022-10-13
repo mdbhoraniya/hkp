@@ -109,9 +109,11 @@ class Welcome extends CI_Controller {
 		$data['message']    = $this->input->post('message');
 		$data['created']    = date('Y-m-d H:i:s');
 
-		$res = $this->welcome->insert_contact_form($data);
+		// $res = $this->welcome->insert_contact_form($data);
 
-		$this->send_email('contact',$data,'Website contact form');
+		$r = $this->send_email('contact',$data,'Website contact form');
+
+		 echo PHP_EOL.'<pre> data => '; print_r($r); die('  die here!');
 
 		echo ($res > 0 ) ? true : false;
 		exit;
@@ -175,7 +177,7 @@ class Welcome extends CI_Controller {
 		
 		$this->email->send();
 		
-		// echo $this->email->print_debugger();
+		echo $this->email->print_debugger();
 	}
 
 	private function user_agent()

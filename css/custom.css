@@ -64,3 +64,8 @@ ul.pager a,ul.pager a:hover {
 .mb20{
   margin-bottom: 20px !important;
 }
+
+#contact_form label.error{
+  color:  #FF0000;
+  font-weight: normal;
+}

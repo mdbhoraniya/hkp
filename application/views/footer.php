@@ -49,7 +49,6 @@
 						<ul class="list-inline social-icons">
 							<li><a href="https://www.facebook.com/hotelkalpanapalace/" target="_blank" title="Facebook - Hotel Kalpana Palace"><i class="fab fa-facebook"></i></a></li>
 							<li><a href="https://twitter.com/KalpanaPalace" target="_blank" title="Twitter - Hotel Kalpana Palace"><i class="fab fa-twitter"></i></a></li>
-							<li><a href="https://plus.google.com/100633954648217602779" target="_blank" title="Google Plus - Hotel Kalpana Palace"><i class="fab fa-google-plus"></i></a></li>
 							<li><a href="https://www.linkedin.com/company/hotel-kalpana-palace/" target="_blank" title="LinkedIn - Hotel Kalpana Palace"><i class="fab fa-linkedin"></i></a></li>
 							<li><a href="https://www.instagram.com/hkp.hotelkalpanapalace/?hl=en" target="_blank" title="Instagram - Hotel Kalpana Palace"><i class="fab fa-instagram"></i></a></li>
 						</ul>
@@ -76,6 +75,8 @@
 	<script type="text/javascript" src="<?php echo $this->config->item('js');?>template.js"></script>
 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 	<script type="text/javascript" src="<?php echo $this->config->item('js');?>custom.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js" integrity="sha512-rstIgDs0xPgmG6RX1Aba4KV5cWJbAMcvRCVmglpam9SoHZiUCyQVDdH2LPlxoHtrv17XWblE/V/PP+Tr04hbtA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/additional-methods.min.js" integrity="sha512-6S5LYNn3ZJCIm0f9L6BCerqFlQ4f5MwNKq+EthDXabtaJvg3TuFLhpno9pcm+5Ynm6jdA9xfpQoMz2fcjVMk9g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 	<script type="text/javascript">
 		jQuery(document).ready(function($) {
 
@@ -261,91 +262,112 @@
 			});
 			// booking form end
 
+
+			$.validator.setDefaults({
+				errorElement : 'label',
+				errorPlacement: function(error, element) {
+					var placement = $(element).data('error');
+					if (placement) {
+						$(placement).append(error)
+					} else {
+						error.insertAfter(element);
+					}
+				}
+			});
+
 			// contact form start
-			$("#submit").click(function(e){
 
-				e.preventDefault();
+			$('#contact_form').validate({
+				rules: {
+					name:{
+						required:true,
+						normalizer: function( value ) {
+							return $.trim( value );
+						}
+					},
+					mobile:{
+						required:true,
+						normalizer: function( value ) {
+							return $.trim( value );
+						}
+					},
+					email:{
+						required:true,
+						normalizer: function( value ) {
+							return $.trim( value );
+						},
+						email: true
+					},
+					message:{
+						required:true,
+						normalizer: function( value ) {
+							return $.trim( value );
+						}
+					}
+				},
+				messages:{
+					name:{
+						required:'Please enter name',
+						// noSpace:'Please enter name'
+					},
+					mobile:{
+						required:'Please enter mobile',
+						// noSpace:'Please enter mobile'
+					},
+					email:{
+						required:'Please enter email',
+						// noSpace:'Please enter email',
+						email: 'Please enter valid email'
+					},
+					message:{
+						required:'Please enter message',
+						// noSpace:'Please enter message'
+					}
+				},
+				submitHandler: function (form) {
+					var name    = $('#name').val().trim();
+					var mobile  = $('#mobile').val().trim();
+					var email   = $('#email').val().trim().toLowerCase();
+					var message = $('#message').val().trim();
+					$.ajax({
+						type : "post",
+						dataType : "html",
+						url : software_rl + 'welcome/save_contact_form',
+						data : ({
+							name : name,
+							mobile : mobile,
+							email : email,
+							message : message
+						}),
+						success: function(data){
+							if(data==1){
+								swal({
+									title: "Thank you, "+name,
+									text: "We have received your data and will get back to you soon!",
+									icon: "success",
+								})
+								.then((clear) => {
+									if (clear) {
+										$('#name').val('');
+										$('#mobile').val('');
+										$('#email').val('');
+										$('#message').val('');
+									}
+								});
+							}else{
+								swal({
+									title: "Error!",
+									text: "The form was not submitted, Please try again!",
+									icon: "error",
+								})
+							}
 
-				var name    = $('#name').val().trim();
-				var mobile  = $('#mobile').val().trim();
-				var email   = $('#email').val().trim().toLowerCase();
-				var message = $('#message').val().trim();
-
-				if (name == "") {
-					swal("Name is required","Please enter a valid full name","error");
-					return false;
-				}else{
-					var temp_name = name.split(' ');
-					var short_name = temp_name[0];
+						}
+            		});
 				}
-
-				if (mobile == "") {
-					swal(short_name+", Mobile is required","Please enter a valid mobile number","error");
-					return false;
-				}
-
-				if (email == "" || !validateEmail(email)) {
-					swal(short_name+", Email is required","Please enter a valid email address","error");
-					return false;
-				}
-
-				if (message == "") {
-					swal(short_name+", Message is required","Please enter a some message","error");
-					return false;
-				}
-
-                $.ajax({
-                    type : "post",
-                    dataType : "html",
-                    url : software_rl + 'welcome/save_contact_form',
-                    data : ({
-                        name : name,
-                        mobile : mobile,
-                        email : email,
-                        message : message
-                    }),
-                    success: function(data){
-                        if(data==1){
-                            swal({
-                              title: "Thank you, "+short_name,
-                              text: "We have received your data and will get back to you soon!",
-                              icon: "success",
-                            })
-                            .then((clear) => {
-                                if (clear) {
-                                    $('#name').val('');
-                                    $('#mobile').val('');
-                                    $('#email').val('');
-                                    $('#message').val('');
-                                }
-                            });
-                        }else{
-                            swal({
-                              title: "Error!",
-                              text: "The form was not submitted, Please try again!",
-                              icon: "error",
-                            })
-                        }
-
-                    },
-                    beforeSend : function(){
-                        // swal("Submitting data");
-                    }
-                });
-
-            });
+			});
             // contact form end
 		});
-
-		function validateEmail(sEmail) {
-			var filter = /^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
-			if (filter.test(sEmail)) {
-				return true;
-			}
-			else {
-				return false;
-			}
-		}
 
 		function formatDate(date) {
 
