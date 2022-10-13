@@ -109,7 +109,7 @@
 				<div class="package-inner">
 					<div class="title">Activities</div>
 					<div class="package-details">
-						<ul><li>Welcome to the city that never sleeps. Enjoy an eclectic mix of the most exhilarating places to visit in Mumbai that will allure you with an enviable vibe. Mumbai is the Big Apple of India, and if you are traveling to Mumbai, here are some places mentioned which are nearby from the hotel.</li></ul>
+						<ul><li>Welcome to the city that never sleeps. Enjoy an eclectic mix of the most exhilarating places to visit in Mumbai that will allure you with an enviable vibe. Mumbai is the Big Apple of India, & if you are traveling to Mumbai, visit places mentioned which are nearby from hotel.</li></ul>
 					</div>
 					<a href="<?php echo base_url('nearby'); ?>" class="btn btn-default">More...</a>
 				</div>
